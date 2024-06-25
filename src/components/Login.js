@@ -8,9 +8,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { addUser } from "../utils/userSlice";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -21,7 +19,6 @@ const Login = () => {
   const password = useRef(null);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleButtonClick = () => {
     const message = checkValidData(email.current.value, password.current.value);
@@ -39,11 +36,12 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://picsum.photos/200",
+            photoURL:
+              "https://pihttps://occ-0-6247-2164.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABdpkabKqQAxyWzo6QW_ZnPz1IZLqlmNfK-t4L1VIeV1DY00JhLo_LMVFp936keDxj-V5UELAVJrU--iUUY2MaDxQSSO-0qw.png?r=e6ecsum.photos/200",
           });
         })
         .then(() => {
-          const { uid, email, displayName, photoURL } = user;
+          const { uid, email, displayName, photoURL } = auth.currentUser;
           dispatch(
             addUser({
               uuid: uid,
@@ -52,7 +50,6 @@ const Login = () => {
               photoURL: photoURL,
             })
           );
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -69,7 +66,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          navigate("./browse");
         })
         .catch((error) => {
           const errorCode = error.code;
