@@ -7,6 +7,7 @@ import { useEffect } from "react";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from "../utils/userSlice";
+import { LOGO, USER_AVATAR } from "../utils/constants";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Header = () => {
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, email, displayName, photoURL } = user;
         dispatch(
@@ -39,14 +40,12 @@ const Header = () => {
         navigate("/");
       }
     });
+    // unsubscribe when component unmount
+    return () => unsubscribe();
   }, []);
   return (
     <div className="absolute px-8 w-screen py-2 bg-gradient-to-b from-black z-10 flex justify-between">
-      <img
-        className="w-44"
-        src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-        alt="logo"
-      />
+      <img className="w-44" src={LOGO} alt="logo" />
       {user && (
         <div className="flex p-2">
           <img alt="usericon" className="w-12 h-12 " src={user?.photoUrl} />
