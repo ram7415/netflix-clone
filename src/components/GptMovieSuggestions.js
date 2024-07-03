@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useSelector } from "react-redux";
 import MovieList from "./MovieList";
 
@@ -19,4 +20,12 @@ const GptMovieSuggestions = () => {
     </div>
   );
 };
+=======
+import React from "react";
+
+const GptMovieSuggestions = () => {
+  return <div>GptMovieSuggestions</div>;
+};
+
+>>>>>>> 7eef0a5 (added languages in gpt searchbox)
 export default GptMovieSuggestions;
