@@ -22,9 +22,12 @@ const GptMovieSuggestions = () => {
 };
 =======
 import React from "react";
+import { useSelector } from "react-redux";
 
 const GptMovieSuggestions = () => {
-  return <div>GptMovieSuggestions</div>;
+  const { movieResults, movieNames } = useSelector((store) => store.gpt);
+  if (!movieNames) return null;
+  return <div className="p-4 m-4 ">{movieNames}</div>;
 };
 
 >>>>>>> 7eef0a5 (added languages in gpt searchbox)

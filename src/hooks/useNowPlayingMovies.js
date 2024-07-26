@@ -10,14 +10,21 @@ const useNowPlayingMovies = () => {
   const nowPlayingMovies = useSelector(
     (store) => store.movies.nowPlayingMovies
   );
+<<<<<<< HEAD
 console.log("nowplaying",nowPlayingMovies);
+=======
+
+>>>>>>> 582e672 (created env file and gpt fetch)
   const getNowPlayingMovies = async () => {
     const data = await fetch(
       "https://api.themoviedb.org/3/movie/now_playing?page=1",
       API_OPTIONS
     );
     const json = await data.json();
+<<<<<<< HEAD
     console.log("json",json);
+=======
+>>>>>>> 582e672 (created env file and gpt fetch)
     dispatch(addNowPlayingMovies(json.results));
   };
 
