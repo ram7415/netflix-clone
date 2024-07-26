@@ -1,39 +1,21 @@
-<<<<<<< HEAD
-import { BG_URL } from "../utils/constants";
+import {  BGIMAGE_URL } from "../utils/constants";
 import GptMovieSuggestions from "./GptMovieSuggestions";
 import GptSearchBar from "./GptSearchBar";
-
-const GPTSearch = () => {
-  return (
-    <>
-      <div className="fixed -z-10">
-        <img className="h-screen object-cover" src={BG_URL} alt="logo" />
-      </div>
-      <div className="">
-        <GptSearchBar />
-        <GptMovieSuggestions />
-      </div>
-    </>
-  );
-};
-export default GPTSearch;
-=======
-import React from "react";
-import GptSearchBar from "./GptSearchBar";
-import GptMovieSuggestions from "./GptMovieSuggestions";
-import { BG_URL } from "../utils/constants";
 
 const GptSearch = () => {
   return (
-    <div>
-      <div className="absolute -z-10">
-        <img className="h-screen object-cover " src={BG_URL} alt="logo" />
+    <>
+      <div className="fixed -z-10 w-full h-screen">
+        <img src={BGIMAGE_URL} alt="background" className="w-full h-full object-cover opacity-99" />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black to-transparent  opacity-95"></div>
       </div>
-      <GptSearchBar />
-      <GptMovieSuggestions />
-    </div>
+      <div className="pt-[30%] md:p-0">
+        <GptSearchBar />
+        <GptMovieSuggestions/>
+      </div>
+    </>
   );
+  
+  
 };
-
 export default GptSearch;
->>>>>>> 7eef0a5 (added languages in gpt searchbox)

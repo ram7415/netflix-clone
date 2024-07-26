@@ -55,13 +55,13 @@ const Header = () => {
   };
 
   return (
-    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between">
-      <img className="w-44 mx-auto md:mx-0" src={LOGO} alt="logo" />
+    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black to-transparent  z-10 flex flex-col md:flex-row justify-between  ">
+    <img className="w-44 mx-auto md:mx-0" src={LOGO} alt="logo" />
       {user && (
-        <div className="flex p-2 justify-between">
+       <div className="flex  md:gap-2  justify-between ">
           {showGptSearch && (
             <select
-              className="p-2 m-2 bg-gray-900 text-white"
+                className="bg-gray-200 p-1 m-2 h-10 w-18 rounded-lg hover:bg-white"
               onChange={handleLanguageChange}
             >
               {SUPPORTED_LANGUAGES.map((lang) => (
@@ -71,28 +71,18 @@ const Header = () => {
               ))}
             </select>
           )}
-<<<<<<< HEAD
-         <button
-=======
           <button
->>>>>>> 7eef0a5 (added languages in gpt searchbox)
-            className="py-2 px-4 mx-4 my-2 bg-purple-800 text-white rounded-lg"
+            className="py-0 px-4 mx-4 my-2 bg-purple-800 text-white rounded-lg"
             onClick={handleGptSearchClick}
           >
-            {showGptSearch ? "Homepage" : "GPT Search"}
+            {showGptSearch ? "Homepage" : "GPTSearch"}
           </button>
-<<<<<<< HEAD
-          <img
-            className="hidden md:block w-12 h-12"
-            alt="usericon"
-            src={user?.photoURL}
-          />
-          <button onClick={handleSignOut} className="font-bold text-white ">
-=======
-          <img alt="usericon" className="w-12 h-12 " src={user?.photoUrl} />
-          <button className="font-bold text-white" onClick={handleSignOut}>
->>>>>>> 7eef0a5 (added languages in gpt searchbox)
-            (Sign Out)
+          <img alt="usericon"   className="w-12 h-10 my-2 rounded-xl mx-16 md:mx-0" src={user?.photoURL} />
+          <button
+            onClick={handleSignOut}
+            className="font-bold rounded-lg h-10 my-2 w-full text-white"
+          >
+            SignOut
           </button>
         </div>
       )}

@@ -1,34 +1,34 @@
-<<<<<<< HEAD
 import { useSelector } from "react-redux";
 import MovieList from "./MovieList";
+import { useEffect,useState } from "react";
 
-const GptMovieSuggestions = () => {
+const GptMovieSuggestion = () => {
   const { movieResults, movieNames } = useSelector((store) => store.gpt);
-  if (!movieNames) return null;
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (movieNames && movieResults.length > 0) {
+      setLoading(false);
+    }
+  }, [movieNames, movieResults]);
+
+  
+
+  if (!movieNames) return null; //TODO: ERROR PAGE SHOW
 
   return (
-    <div className="p-4 m-4 bg-black text-white bg-opacity-90">
+    <div className="p-4 m-4 bg-black text-white opacity-90 rounded-xl ">
       <div>
         {movieNames.map((movieName, index) => (
           <MovieList
             key={movieName}
             title={movieName}
             movies={movieResults[index]}
-          />
+          ></MovieList>
         ))}
       </div>
     </div>
   );
 };
-=======
-import React from "react";
-import { useSelector } from "react-redux";
 
-const GptMovieSuggestions = () => {
-  const { movieResults, movieNames } = useSelector((store) => store.gpt);
-  if (!movieNames) return null;
-  return <div className="p-4 m-4 ">{movieNames}</div>;
-};
-
->>>>>>> 7eef0a5 (added languages in gpt searchbox)
-export default GptMovieSuggestions;
+export default GptMovieSuggestion;
