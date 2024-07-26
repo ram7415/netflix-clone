@@ -72,3 +72,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 need to rewrite the login function. it is having some bugd
 login page working fine
+design is looking ugly need to work on it
+need to edit whole project it is not working 
