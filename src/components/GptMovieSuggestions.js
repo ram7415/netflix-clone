@@ -17,17 +17,18 @@ const GptMovieSuggestion = () => {
   if (!movieNames) return null; //TODO: ERROR PAGE SHOW
 
   return (
-    <div className="p-4 m-4 bg-black text-white opacity-90 rounded-xl ">
-      <div>
-        {movieNames.map((movieName, index) => (
-          <MovieList
-            key={movieName}
-            title={movieName}
-            movies={movieResults[index]}
-          ></MovieList>
-        ))}
-      </div>
+    <div className="p-4 md:p-6 lg:p-8 m-4 md:m-6 lg:m-8 bg-black text-white opacity-90 rounded-xl">
+    <div>
+      {movieNames.map((movieName, index) => (
+        <MovieList
+          key={movieName}
+          title={movieName}
+          movies={movieResults[index]}
+        />
+      ))}
     </div>
+  </div>
+  
   );
 };
 
