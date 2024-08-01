@@ -10,7 +10,7 @@ const useNowPlayingMovies = () => {
   const nowPlayingMovies = useSelector(
     (store) => store.movies.nowPlayingMovies
   );
-  console.log("nowPlayingMovies", nowPlayingMovies);
+  // console.log("nowPlayingMovies", nowPlayingMovies);
 
   const getNowPlayingMovies = async () => {
     try {

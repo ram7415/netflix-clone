@@ -4,7 +4,7 @@ import { IMG_CDN_URL } from '../utils/constants';
 
 const RailwayMenCards = () => {
   const movies = useSelector((store) => store.movies.nowPlayingMovies);
-  console.log('movies', movies);
+  // console.log('movies', movies);
 
   return (
     <div className="overflow-x-auto whitespace-nowrap py-4 mx-4">

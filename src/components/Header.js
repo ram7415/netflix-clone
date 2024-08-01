@@ -61,7 +61,7 @@ const Header = () => {
        <div className="flex  md:gap-2  justify-between ">
           {showGptSearch && (
             <select
-                className="py-0 px-8 mx-2 hover:bg-white hover:text-black md:px-4  my-4 mb-5 bg-purple-800 text-white rounded-lg"
+                className="py-0 px-8 mx-2 md:mx-2  hover:bg-white hover:text-black md:px-4  my-4 mb-5 bg-red-500 text-white rounded-lg"
               onChange={handleLanguageChange}
             >
               {SUPPORTED_LANGUAGES.map((lang) => (
@@ -72,17 +72,17 @@ const Header = () => {
             </select>
           )}
           <button
-            className="py-2 px-10 mx-2 hover:bg-white hover:text-black md:px-4  my-4 mb-5 bg-purple-800 text-white rounded-lg"
+            className="py-2 px-8 mx-2 md:mx-2 hover:bg-white hover:text-black md:px-4  my-4 mb-5 bg-purple-800 text-white rounded-lg"
             onClick={handleGptSearchClick}
           >
             {showGptSearch ? "Homepage" : "GPTSearch"}
           </button>
-          <button
+          {!showGptSearch? <button
             onClick={handleSignOut}
             className="py-2 px-10 mx-2 md:px-4  my-4 mb-5 hover:bg-white rounded bg-red-500 hover:text-black"
           >
             SignOut
-          </button>
+          </button>:'null'}
           <img alt="usericon"   className="w-12 h-10 my-4   rounded-xl  hidden md:inline-block" src={user?.photoURL} />
         </div>
       )}

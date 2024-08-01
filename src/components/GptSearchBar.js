@@ -17,7 +17,6 @@ const GptSearchBar = () => {
     "Action-packed Thrillers",
     "Epic Historical Dramas",
     "Comedy Blockbusters",
-    "Action & Adventure",
   ];
 
   const loadingTextOptions = ["Loading..⌛", "Connecting..🔗", "Exploring..🔍", "Unleashing..🔥", "Revealing..🎭"];
@@ -38,12 +37,12 @@ const GptSearchBar = () => {
         setLoading(false);
         return;
       }
-      console.log("results:", text);
+      // console.log("results:", text);
       const gptMovies = text.split(","); // converts to array
 
       const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
       const tmdbResults = await Promise.all(promiseArray);
-      console.log(tmdbResults);
+      // console.log(tmdbResults);
 
       dispatch(addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults }));
     } catch (error) {
@@ -83,7 +82,7 @@ const GptSearchBar = () => {
   };
 
   return (
-    <div className="pt-20 mt-10 md:mt-0 md:pt-12 flex flex-col items-center text-center space-y-8">
+    <div className="pt-20 mt-14 md:mt-0 md:pt-12 flex flex-col items-center text-center space-y-4">
       <div>
         <h1 className="text-white text-xl md:text-5xl font-extrabold mb-4">
           Discover <span className="text-purple-500">Your Next</span> Favorite{" "}
@@ -97,7 +96,7 @@ const GptSearchBar = () => {
       </div>
 
       <form
-        className="w-full md:w-2/3 lg:w-1/2 bg-black bg-opacity-50 rounded-xl p-4 shadow-lg flex flex-col md:flex-row items-center md:space-x-4"
+        className="w-[250px] md:w-2/3 lg:w-1/2 bg-black bg-opacity-50 rounded-xl p-4 shadow-lg flex flex-col md:flex-row items-center md:space-x-4"
         onSubmit={(e) => e.preventDefault()}
       >
         <input
@@ -121,8 +120,8 @@ const GptSearchBar = () => {
         {lang[langKey].gptSearchTag}
       </p>
 
-      <div className="w-full md:w-2/3 lg:w-1/2 bg-black bg-opacity-50 rounded-xl p-4 shadow-lg">
-        <h2 className="text-white text-lg md:text-xl font-bold mb-4">Trending</h2>
+      <div className="w-full md:w-3/3  bg-black bg-opacity-50 rounded-xl p-1 shadow-lg">
+        <h2 className="text-white text-lg md:text-xl font-bold mb-2">Trending</h2>
         <div className="flex flex-wrap justify-center gap-4">
           {suggestions.map((suggestion, index) => (
             <button
