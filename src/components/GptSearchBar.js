@@ -11,6 +11,7 @@ const GptSearchBar = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [loadingTextIndex, setLoadingTextIndex] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const suggestions = [
     "Action-packed Thrillers",
@@ -19,53 +20,62 @@ const GptSearchBar = () => {
     "Action & Adventure",
   ];
 
-  // Array of loading text options
   const loadingTextOptions = ["Loading..⌛", "Connecting..🔗", "Exploring..🔍", "Unleashing..🔥", "Revealing..🎭"];
 
-  // Function to handle click event
   const handleGptSearchClick = async () => {
     setLoading(true);
+    setErrorMessage("");
     const prompt =
       "Act as a Movie Recommendation System and Suggest some best movies for the query :" +
       searchText.current.value +
       ". Only give names of 15 movies, comma separated. Like the example result ahead. Example Result : yeh jawaani hai deewani, Animal, Kalki 2898 AD, Maharaja, Gaddar, Saaho, Salaar, Bahubali, Jailer, Kantara";
-    const gptResult = await openai.generateContent(prompt);
-    const response = await gptResult.response;
-    const text = await response.text();
-    if (!text) {
-      setLoading(false);
-      return;
-    }
-    console.log("results : ", text);
-    const gptMovies = text.split(","); // converts to array
+    try {
+      const gptResult = await openai.generateContent(prompt);
+      const response = await gptResult.response;
+      const text = await response.text();
+      if (!text) {
+        setErrorMessage("No response from AI. Please try again later.");
+        setLoading(false);
+        return;
+      }
+      console.log("results:", text);
+      const gptMovies = text.split(","); // converts to array
 
-    const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
-    const tmdbResults = await Promise.all(promiseArray);
-    console.log(tmdbResults);
-    dispatch(
-      addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults })
-    );
-    setLoading(false);
+      const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
+      const tmdbResults = await Promise.all(promiseArray);
+      console.log(tmdbResults);
+
+      dispatch(addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults }));
+    } catch (error) {
+      setErrorMessage("An error occurred. Please try again later or check your network connection.");
+      console.error("Error during GPT search:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Effect to rotate loading text
   useEffect(() => {
     const interval = setInterval(() => {
       setLoadingTextIndex((prevIndex) => (prevIndex + 1) % loadingTextOptions.length);
-    }, 1000); // Change the interval as needed
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
   const searchMovieTMDB = async (movie) => {
-    const data = await fetch(
-      "https://api.themoviedb.org/3/search/movie?query=" +
-        movie +
-        "&include_adult=false&language=en-US&page=1",
-      API_OPTIONS
-    );
-    const json = await data.json();
-    return json.results;
+    try {
+      const data = await fetch(
+        "https://api.themoviedb.org/3/search/movie?query=" +
+          movie +
+          "&include_adult=false&language=en-US&page=1",
+        API_OPTIONS
+      );
+      const json = await data.json();
+      return json.results;
+    } catch (error) {
+      console.error("Error fetching movie from TMDB:", error);
+      return [];
+    }
   };
 
   const handleSuggestionClick = (suggestion) => {
@@ -75,11 +85,11 @@ const GptSearchBar = () => {
   return (
     <div className="pt-20 mt-10 md:mt-0 md:pt-12 flex flex-col items-center text-center space-y-8">
       <div>
-      <h1 className="text-white text-xl md:text-5xl font-extrabold mb-4">
-        Discover <span className="text-purple-500">Your Next</span> Favorite{" "}
-        <span className="text-blue-500">Movie</span> with{" "}
-        <span className="text-red-500">AI Insights</span>
-      </h1>
+        <h1 className="text-white text-xl md:text-5xl font-extrabold mb-4">
+          Discover <span className="text-purple-500">Your Next</span> Favorite{" "}
+          <span className="text-blue-500">Movie</span> with{" "}
+          <span className="text-red-500">AI Insights</span>
+        </h1>
 
         <p className="text-white text-base md:text-lg italic mb-4 hover:text-green-400 transition duration-300">
           {lang[langKey].gptHeadingtag}
@@ -104,6 +114,8 @@ const GptSearchBar = () => {
           {loading ? loadingTextOptions[loadingTextIndex] + " " : lang[langKey].search}
         </button>
       </form>
+
+      {errorMessage && <p className="text-red-500 text-sm mt-4">{errorMessage}</p>}
 
       <p className="text-white text-sm mb-4 opacity-80">
         {lang[langKey].gptSearchTag}

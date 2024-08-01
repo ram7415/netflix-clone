@@ -19,8 +19,6 @@ const useTopratedMovies = () => {
       }
 
       const json = await response.json();
-      
-      // Ensure json.results exists and is an array
       if (json.results && Array.isArray(json.results)) {
         dispatch(addTopRatedMovies(json.results));
       } else {
@@ -28,16 +26,14 @@ const useTopratedMovies = () => {
       }
     } catch (error) {
       console.error("Error fetching top-rated movies:", error);
-      // Handle the error, e.g., show a notification, set error state, etc.
     }
   };
 
   useEffect(() => {
     getTopratedMovies();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+   }, []);
 
-  return null; // Adjust based on how you use the hook
+  return null; 
 };
 
 export default useTopratedMovies;

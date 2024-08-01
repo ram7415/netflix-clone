@@ -5,7 +5,7 @@ import GptSearchBar from "./GptSearchBar";
 const GptSearch = () => {
   return (
     <>
-      <div className="fixed -z-10 w-full h-screen">
+      <div className="fixed -z-10 w-full  h-[550px] md:h-screen">
         <img
           src={BGIMAGE_URL}
           alt="background"

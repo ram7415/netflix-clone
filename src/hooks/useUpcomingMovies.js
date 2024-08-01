@@ -19,8 +19,6 @@ const useUpcomingMovies = () => {
       }
 
       const json = await response.json();
-
-      // Ensure json.results exists and is an array
       if (json.results && Array.isArray(json.results)) {
         dispatch(addUpcomingMovies(json.results));
       } else {
@@ -28,16 +26,14 @@ const useUpcomingMovies = () => {
       }
     } catch (error) {
       console.error("Error fetching upcoming movies:", error);
-      // Handle the error, e.g., show a notification, set error state, etc.
-    }
+     }
   };
 
   useEffect(() => {
     getUpcomingMovies();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return null; // Adjust based on how you use the hook
+  return null; 
 };
 
 export default useUpcomingMovies;

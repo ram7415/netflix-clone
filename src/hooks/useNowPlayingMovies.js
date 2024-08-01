@@ -24,9 +24,7 @@ const useNowPlayingMovies = () => {
       }
 
       const json = await response.json();
-      console.log("json", json);
-
-      // Ensure json.results exists and is an array
+      // console.log("json", json);
       if (json.results && Array.isArray(json.results)) {
         dispatch(addNowPlayingMovies(json.results));
       } else {
@@ -34,8 +32,7 @@ const useNowPlayingMovies = () => {
       }
     } catch (error) {
       console.error("Error fetching now playing movies:", error);
-      // Handle the error, e.g., show a notification, set error state, etc.
-    }
+       }
   };
 
   useEffect(() => {
@@ -44,7 +41,7 @@ const useNowPlayingMovies = () => {
     }
   }, [nowPlayingMovies]);
 
-  return nowPlayingMovies; // Return the data if needed
+  return nowPlayingMovies; 
 };
 
 export default useNowPlayingMovies;

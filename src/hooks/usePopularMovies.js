@@ -18,9 +18,7 @@ const usePopularMovies = () => {
       }
 
       const json = await response.json();
-      console.log("Popular Movies:", json.results);
-
-      // Ensure json.results exists and is an array
+      // console.log("Popular Movies:", json.results);
       if (json.results && Array.isArray(json.results)) {
         dispatch(addPopularMovies(json.results));
       } else {
@@ -28,16 +26,14 @@ const usePopularMovies = () => {
       }
     } catch (error) {
       console.error("Error fetching popular movies:", error);
-      // Optionally, handle the error, e.g., set error state or show a notification
-    }
+   }
   };
 
   useEffect(() => {
     getPopularMovies();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return null; // Adjust based on how you use the hook
+  return null; 
 };
 
 export default usePopularMovies;
