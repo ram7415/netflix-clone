@@ -16,8 +16,6 @@ const GptSearchBar = () => {
     "Action-packed Thrillers",
     "Epic Historical Dramas",
     "Comedy Blockbusters",
-    "Indian Undercover Operations",
-    "Fantasy and Science Fiction",
     "Action & Adventure",
   ];
 
